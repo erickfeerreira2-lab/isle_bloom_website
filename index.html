@@ -1,0 +1,198 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Isle Bloom</title>
+  <link rel="icon" href="store_icon.png">
+  <style>
+    /* ── Reset & Base ── */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html, body { min-height: 100%; }
+    body {
+      font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+      color: #e6eef6;
+      background: #0b1018;
+      overflow-x: hidden;
+    }
+
+    /* ── Blurred full-page background ── */
+    .bg-blur {
+      position: fixed;
+      top: -20px; left: -20px; right: -20px; bottom: -20px;
+      background: url('Vertical_Banner_4_logoless.jpg') center/cover no-repeat;
+      filter: blur(14px) saturate(1.1);
+      z-index: 0;
+    }
+    .bg-overlay {
+      position: fixed;
+      top: 0; left: 0; right: 0; bottom: 0;
+      background: radial-gradient(ellipse at center, rgba(0,0,0,0.05) 30%, rgba(0,0,0,0.45) 70%, rgba(0,0,0,0.75) 100%);
+      z-index: 0;
+    }
+
+    /* ── Page wrapper (above background) ── */
+    .page {
+      position: relative;
+      z-index: 1;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      min-height: 100vh;
+      padding: 48px 20px 0;
+    }
+
+    /* ── Logo ── */
+    .logo {
+      max-width: 380px;
+      width: 55%;
+      height: auto;
+      margin-bottom: 24px;
+    }
+
+    /* ── Play Store button ── */
+    .play-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      padding: 14px 24px;
+      background: #5dc2cf;
+      color: #0a2a14;
+      border-radius: 999px;
+      text-decoration: none;
+      font-weight: 700;
+      font-size: 16px;
+      box-shadow: 0 4px 16px rgba(0,0,0,0.4);
+      transition: transform 0.15s, box-shadow 0.15s;
+    }
+    .play-btn:hover { transform: translateY(-2px); box-shadow: 0 6px 20px rgba(0,0,0,0.5); }
+    .play-btn img { width: 26px; height: 26px; }
+
+    /* ── Info box (description + carousel) ── */
+    .info-box {
+      margin-top: 28px;
+      background: rgba(0, 0, 0, 0.55);
+      backdrop-filter: blur(6px);
+      -webkit-backdrop-filter: blur(6px);
+      padding: 22px;
+      border-radius: 14px;
+      max-width: 860px;
+      width: 100%;
+    }
+    .info-box p { margin: 6px 0; line-height: 1.55; color: #dce8e0; }
+    .cta { font-weight: 600; color: #c8f0d4; }
+
+    /* ── Carousel ── */
+    .carousel { position: relative; margin-top: 16px; border-radius: 10px; overflow: hidden; }
+    .carousel img {
+      width: 100%;
+      height: auto;
+      display: none;
+      border-radius: 10px;
+    }
+    .carousel img.active { display: block; }
+    .carousel-controls {
+      display: flex;
+      justify-content: center;
+      gap: 10px;
+      margin-top: 10px;
+    }
+    .carousel-controls button {
+      background: rgba(255,255,255,0.08);
+      color: #e6eef6;
+      border: none;
+      padding: 8px 14px;
+      border-radius: 8px;
+      cursor: pointer;
+      font-size: 14px;
+    }
+    .carousel-controls button:hover { background: rgba(255,255,255,0.15); }
+
+    /* ── Footer ── */
+    .site-footer {
+      position: relative;
+      z-index: 1;
+      text-align: center;
+      padding: 28px 20px;
+      font-size: 13px;
+      color: #8aa896;
+      margin-top: auto;
+    }
+    .site-footer a { color: #c8ddd0; text-decoration: underline; }
+    .site-footer p { margin: 4px 0; }
+
+    /* ── Responsive ── */
+    @media (max-width: 640px) {
+      .logo { width: 80%; }
+      .info-box { padding: 14px; }
+      .page { padding: 32px 12px 0; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Background layers (behind everything) -->
+  <div class="bg-blur" aria-hidden="true"></div>
+  <div class="bg-overlay" aria-hidden="true"></div>
+
+  <!-- Page content -->
+  <div class="page">
+    <img class="logo" src="text_logo.png" alt="Isle Bloom">
+
+    <a class="play-btn" href="https://play.google.com/store/apps/details?id=com.dillrander.isle_bloom" target="_blank" rel="noopener noreferrer">
+      <img src="play.png" alt=""> Baixar na Play Store
+    </a>
+
+    <div class="info-box">
+      <p>
+        Isle Bloom é um jogo de construção de vilarejo cozy onde você cria uma ilha viva cheia de visitantes,
+        detalhes e momentos relaxantes. Sem pressa, sem estresse — apenas construa, assista e aproveite.
+      </p>
+      <p class="cta">Construa, atraia visitantes e desbloqueie novas áreas no seu ritmo.</p>
+
+      <div class="carousel">
+        <img class="active" src="Horizontal_Banner_1_logoless.jpg" alt="Isle Bloom screenshot of town center and garden area">
+        <img src="Horizontal_Banner_2_logoless.jpg" alt="Isle Bloom screenshot from tavern area">
+        <img src="Horizontal_Banner_3_logoless.jpg" alt="Isle Bloom screenshot from bakery">
+      </div>
+      <div class="carousel-controls">
+        <button id="prev">&#9664;</button>
+        <button id="next">&#9654;</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Footer -->
+  <footer class="site-footer">
+    <p>&copy; 2026 Dillrander &mdash; Isle Bloom</p>
+    <p>Contato: erickfeerreira2@gmail.com</p>
+    <p><a href="privacy_policy/index.html">Política de Privacidade</a></p>
+  </footer>
+
+  <!-- Carousel script -->
+  <script>
+    (function () {
+      var slides = document.querySelectorAll('.carousel img');
+      if (!slides.length) return;
+      var idx = 0;
+      function show(i) {
+        for (var s = 0; s < slides.length; s++) {
+          slides[s].className = s === i ? 'active' : '';
+        }
+      }
+      document.getElementById('prev').onclick = function () {
+        idx = (idx - 1 + slides.length) % slides.length;
+        show(idx);
+      };
+      document.getElementById('next').onclick = function () {
+        idx = (idx + 1) % slides.length;
+        show(idx);
+      };
+      setInterval(function () {
+        idx = (idx + 1) % slides.length;
+        show(idx);
+      }, 4500);
+    })();
+  </script>
+</body>
+</html>
